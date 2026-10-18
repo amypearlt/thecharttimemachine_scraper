@@ -1,27 +1,27 @@
 I used Scrapy, a Python framework for web crawling and scraping, in order to extract data from [The Chart Time Machine](https://www.charttimemachine.com), a web archive of 20th century UK singles charts.
 
-To scrape **all** charts from the 20th century, use:
+To scrape **all** charts from the 20th century, input:
 
 `scrapy crawl charts`
 
-To scrape a specific year, use `year`:
+To scrape a specific year, pass `year`:
 
 `scrapy crawl charts -a year=1963`
 
-To scrape a specific decade, use `decade`:
+To scrape a specific decade, pass `decade`:
 
 `scrapy crawl charts -a decade=1990`
 
-To scrape a week beginning on a specific date, use `week`:
+To scrape 1 week beginning on a specific date, pass `week`:
 
 `scrapy crawl charts -a week=1982-05-14`
 
-To scrape weekly charts within a specific date range, pass your start and end dates via `from_date` and `to_date`:\
-Keep in mind that the furthest back you can go is `1952-11-14`, and the charts end at `1999-12-16`.
+To scrape weekly charts within a specific date range, pass start- and end-dates via `from_date` and `to_date`:\
+Keep in mind that the furthest back you can go is 1952-11-14 (this is when the UK singles chart was first created), and the archive ends at 1999-12-16.
 
 `scrapy crawl charts -a from_date=1969-01-12 -a to_date=1971-11-08`
 
-To dump the scraped data to a CSV file, use the output command:\
+To dump the scraped data to a CSV file, pass the output command:\
 JSON and XML formats can also be used to export data.
 
 `scrapy crawl charts -O charts.csv`
