@@ -26,6 +26,9 @@ JSON and XML formats can also be used to export data.
 
 `scrapy crawl charts -O charts.csv`
 
+Scrapy's HTTP cache is enabled, allowing previously downloaded webpages to be reused - it reduces redundant website requests, and reduces crawling time.\
+Every record in the exported data should be unique, identified by the *week* and *position* columns in conjunction; each record represents a distinct chart entry.
+
 ## A brief definition of web crawling and web scraping
 
 #### <ins>Web Crawler:</ins> An Internet bot that systematically browses the World Wide Web.
