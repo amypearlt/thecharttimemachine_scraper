@@ -1,5 +1,0 @@
-when yielding a request in a callback method, scrapy sneds the request to its scheduler, which qeueus requests before it is sent to the downloader,which fetches the webpage or retrieves cached response. the callback method parse() processes theresponse and yields items/further requests
-yield turns a function into a generator function, which produces values incrementally rather than returning them all at once.
-memory efficiency: instead of constructing a list of 1000s of requests before scrapy canprocess them, yield allows requests to be generated incrementally. this avoids storing the entire list in the spider's memory at once
-
-a callback is a function executed when a particular event occurs, supplied to another function
