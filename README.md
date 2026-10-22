@@ -17,7 +17,7 @@ To scrape 1 week beginning on a specific date, pass `week`:
 `scrapy crawl charts -a week=1982-05-14`
 
 To scrape weekly charts within a specific date range, pass start- and end-dates via `from_date` and `to_date`:\
-Keep in mind that the furthest back you can go is 1952-11-14 (this is when the UK singles chart was first created), and the archive ends at 1999-12-16.
+Keep in mind that the furthest back you can go is `1952-11-14` (this is when the UK singles chart was first created), and the archive ends at `1999-12-16`.
 
 `scrapy crawl charts -a from_date=1969-01-12 -a to_date=1971-11-08`
 

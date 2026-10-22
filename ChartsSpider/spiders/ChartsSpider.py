@@ -67,11 +67,11 @@ class ChartsSpider(scrapy.Spider):
             from_date += timedelta(days=7)
 
     def parse(self, response): #Scrapes weekly charts and extracts their available relevant data, parsing the webpage's HTML.
-        charts = response.css("table.chart_table tr:has(td)")
+        charts = response.css("table.chart_table tr:has(div.position_display)")
         if not charts:
             self.logger.warning(f"No chart entries found from {response.url}")
 
-        for chart in charts: #Utilising CSS selectors
+        for chart in charts: #CSS selectors
             item = {
                 "position": chart.css("td div::text").get(),
                 "artist":   chart.css("td:nth-child(2) a::text").get(),
@@ -88,7 +88,22 @@ class ChartsSpider(scrapy.Spider):
                 self.logger.warning(f'Song URL not found from {item["song"]}, {item["artist"]}')
                 yield item
 
-    def parse_song(self, response, item): #Scrapes individual song webpages for their genre and subgenre. Webpages can be revisited from Scrapy's cache, which is enabled
+            pagination = response.css("table.chart_table tr.pagination") #A total of 3 chart weeks divide their chart entries between 2 pages - caused by tied positions?
+            current_page = pagination.css("span::text").get()
+            if current_page:
+                next_page = int(current_page) + 1
+                next_url = pagination.css(f'a[href*="Page${next_page}"]')
+                if next_url:
+                    yield scrapy.FormRequest.from_response(
+                        response, 
+                        formdata={
+                            "__EVENTTARGET":   "ctl00$ContentPlaceHolder1$gvArtistCharts",
+                            "__EVENTARGUMENT": f"Page${next_page}",
+                        },
+                        callback=self.parse,
+                        dont_filter=True)
+
+    def parse_song(self, response, item): #Scrapes individual song webpages for their genre and subgenre. Webpages can be revisited from Scrapy's cache
         item["genre"] = response.css('div.artist_info_left:contains("Genre") + div.artist_info_right::text').get()
         item["subgenre"] = response.css('div.artist_info_left:contains("Style") + div.artist_info_right::text').get() #Note: A number of songs do not list a style
         item["song_url"] = response.url
