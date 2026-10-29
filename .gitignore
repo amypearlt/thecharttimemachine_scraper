@@ -3,4 +3,5 @@
 __pycache__/
 *.pyc
 
-*.csv
+/exports/*
+!/exports/.gitkeep

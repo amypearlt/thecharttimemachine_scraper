@@ -89,7 +89,7 @@ class ChartsSpider(scrapy.Spider):
                 self.logger.warning(f'Song URL not found from {item["song"]}, {item["artist"]}')
                 yield item
 
-        pagination = response.css("table.chart_table tr.pagination") #A total of 3 chart weeks divide their chart entries between 2 pages - caused by tied positions?
+        pagination = response.css("table.chart_table tr.pagination") #A total of 3 chart weeks contain >100 entries, and therefore require pagination - caused by tied positions?
         current_page = pagination.css("span::text").get()
         if current_page:
             next_page = int(current_page) + 1
