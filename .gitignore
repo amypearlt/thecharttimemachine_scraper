@@ -3,5 +3,5 @@
 __pycache__/
 *.pyc
 
-/exports/*
-!/exports/.gitkeep
+/output/*
+!/output/.gitkeep

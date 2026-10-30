@@ -105,8 +105,8 @@ class ChartsSpider(scrapy.Spider):
                     dont_click=True,
                     )
 
-    def parse_song(self, response, item): #Scrapes individual song webpages for their genre and subgenre. Webpages can be revisited from Scrapy's cache
+    def parse_song(self, response, item): #Scrapes individual song webpages for their genre and style. Webpages can be revisited from Scrapy's cache
         item["genre"] = response.css('div.artist_info_left:contains("Genre") + div.artist_info_right::text').get()
-        item["subgenre"] = response.css('div.artist_info_left:contains("Style") + div.artist_info_right::text').get() #Note: A number of songs do not list a style
+        item["style"] = response.css('div.artist_info_left:contains("Style") + div.artist_info_right::text').get() #Note: A number of songs do not list a style
         item["song_url"] = response.url
         yield item

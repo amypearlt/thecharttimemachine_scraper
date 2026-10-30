@@ -24,10 +24,10 @@ Keep in mind that the furthest back you can go is `1952-11-14` (this is when the
 To dump the scraped data to a CSV file, pass the output command:\
 JSON and XML formats can also be used to export data.
 
-`scrapy crawl charts -O exports/charts.csv`
+`scrapy crawl charts -O output/charts.csv`
 
 Scrapy's HTTP cache is enabled, allowing previously downloaded webpages to be re-retrieved locally - it prevents redundant website requests, and reduces crawling time.\
-Every record in the exported data should be unique, identified by the *week* and *position* columns in conjunction; each record represents a distinct chart entry.
+Every record in the exported data should be unique, identified by the *position*, *artist*, *song* and *week* columns in conjunction; each record represents a distinct chart entry.
 
 ## A brief definition of web crawling and web scraping
 
