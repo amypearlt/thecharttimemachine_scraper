@@ -1,7 +1,6 @@
 .scrapy/
 
 __pycache__/
-*.pyc
 
 /output/*
 !/output/.gitkeep
