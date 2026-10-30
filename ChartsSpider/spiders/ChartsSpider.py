@@ -106,7 +106,11 @@ class ChartsSpider(scrapy.Spider):
                     )
 
     def parse_song(self, response, item): #Scrapes individual song webpages for their genre and style. Webpages can be revisited from Scrapy's cache
-        item["genre"] = response.css('div.artist_info_left:contains("Genre") + div.artist_info_right::text').get()
-        item["style"] = response.css('div.artist_info_left:contains("Style") + div.artist_info_right::text').get() #Note: A number of songs do not list a style
+        def values(label):
+            texts = response.css(f'div.artist_info_left:contains("{label}") + div.artist_info_right::text').getall()
+            return "|".join(text for text in texts)
+        
+        item["genre"] = values("Genre")
+        item["style"] = values("Style") #Note: A number of songs do not list a style
         item["song_url"] = response.url
         yield item
