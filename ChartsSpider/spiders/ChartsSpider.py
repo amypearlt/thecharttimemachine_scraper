@@ -78,7 +78,7 @@ class ChartsSpider(scrapy.Spider):
                 "artist":   chart.css("td:nth-child(2) a::text").get(),
                 "song":     chart.css("td:nth-child(3) a::text").get(),
                 "label":    chart.css("td:nth-child(4) a::text").get(),
-                "week":     chart.css("td:nth-child(5) span.show_mobile::text").get(), #Note: The date data from the website is not consistent in its format.
+                "week":     chart.css("td:nth-child(5) span.show_mobile::text").get(),
                 "url":      response.url, #Data provenance
             }
             song_url = chart.css("td:nth-child(3) a::attr(href)").get()
@@ -109,7 +109,6 @@ class ChartsSpider(scrapy.Spider):
         def values(label):
             texts = response.css(f'div.artist_info_left:contains("{label}") + div.artist_info_right::text').getall()
             return "|".join(text for text in texts)
-        
         item["genre"] = values("Genre")
         item["style"] = values("Style") #Note: A number of songs do not list a style
         item["song_url"] = response.url
